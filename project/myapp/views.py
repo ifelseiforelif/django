@@ -1,17 +1,29 @@
+from typing import Dict,Union
+import json
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
-def home(request):
-    data = {
-        "city":"Odesa",
-        "year":2026,
-        "streets":["Sadovaya", "Novoselskogo", "Filatova"]
-    }
-    return render(request, 'home.html', data)
+@csrf_exempt
+def home(request:HttpRequest):
+    if request.method=='GET':
+        name:str|None = request.GET.get("name")
+        age:str|None =  request.GET.get("age")
+        data:Dict[str, Union[str, int|None]] = {
+            "name":name,
+            "age":age
+        }
+        return render(request, 'home.html', data)
+    elif request.method=='POST':
+       body:str|bytearray|bytes = json.loads(request.body)
 
-def contacts(request):
-    return HttpResponse("Contacts")
+       return JsonResponse({"name":body.get("name"), "email":body.get("email")}, status=201) # type: ignore
 
-def about(request, id):
-    return HttpResponse(f'About {id}')
+def contacts(request:HttpRequest):
+    return render(request, 'contacts.html')
+    #return HttpResponse("Contacts")
+
+def about(request:HttpRequest):
+      return render(request, 'about.html')
+    #return HttpResponse(f'About {id}')
