@@ -15,6 +15,11 @@
   </form>
   <p id="data"></p>
 </div>
+<div class="card">
+  {%if data%} {%for post in data%}
+  <p>{{post.id}}:{{post.title}}</p>
+  {%endfor%} {%endif%}
+</div>
 <div class="hero">
   <h2>Відкрий світ історії</h2>
   <p>Унікальні експонати та виставки</p>
@@ -35,4 +40,5 @@
   <h3>{{name|default_if_none:""}}</h3>
   <p>{{age|default_if_none:""}}</p>
 </div>
+
 {%endif%} {%endblock%}
