@@ -3,7 +3,6 @@ const p = document.getElementById("data");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(form).entries());
-  console.log(data);
   fetch("/", {
     method: "POST",
     headers: {
@@ -13,8 +12,8 @@ form.addEventListener("submit", (e) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      p.innerHTML = data.name + " " + data.email;
       form.reset();
+      window.location.reload();
     })
     .catch((error) => console.error("Error:", error));
 });

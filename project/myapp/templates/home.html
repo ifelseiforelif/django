@@ -3,22 +3,28 @@
 <div class="card" style="display: flex; justify-content: center">
   <form method="post" id="form">
     <div>
-      <input type="text" name="name" placeholder="Ваше ім'я" required />
-    </div>
-    <div>
-      <input type="email" name="email" placeholder="Ваш email" required />
-    </div>
-    <div>
-      <textarea name="message" placeholder="Ваш відгук..." required></textarea>
+      <input type="text" name="title" placeholder="Назва поста" required />
     </div>
     <button type="submit">Надіслати</button>
   </form>
-  <p id="data"></p>
 </div>
 <div class="card">
-  {%if data%} {%for post in data%}
-  <p>{{post.id}}:{{post.title}}</p>
-  {%endfor%} {%endif%}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%if data%} {%for post in data%}
+      <tr>
+        <td scope="row">{{post.id}}</td>
+        <td>{{post.title}}</td>
+      </tr>
+      {%endfor%} {%endif%}
+    </tbody>
+  </table>
 </div>
 <div class="hero">
   <h2>Відкрий світ історії</h2>
